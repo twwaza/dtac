@@ -44,9 +44,10 @@ echo "Select a dns resolver
 1 = Google Doh
 2 = Google (8.8.8.8)
 3 = Cloudflare Doh
-4 = Cloudflare (124.40.228.1)
+4 = Cloudflare (1.1.1.1)
 5 = Opendns Doh
 6 = Opendns (208.67.222.222)
+7 = DTAC (124.40.228.1)
 "
 read -p "Please enter the type of dns resolver : " dnschecker
   if [[ $dnschecker ]] && [ $dnschecker -eq $dnschecker 2>/dev/null ]
@@ -79,9 +80,9 @@ case $dnsresolverselected in
     dnsresolver="https://cloudflare-dns.com/dns-query"
     ;;
   4)
-    dnsresolverName="Cloudflare (124.40.228.1)"
+    dnsresolverName="Cloudflare (1.1.1.1)"
      dnsresolverType="udp"
-    dnsresolver="124.40.228.1:53"
+    dnsresolver="1.1.1.1:53"
     ;;
   5)
     dnsresolverName="Opendns Doh"
@@ -93,6 +94,11 @@ case $dnsresolverselected in
      dnsresolverType="udp"
     dnsresolver="208.67.222.222:53"
     ;;     
+   7)
+    dnsresolverName="DTAC (124.40.228.1)"
+     dnsresolverType="udp"
+    dnsresolver="124.40.228.1:53"
+    ;;
   *)
     exit 1
     ;;
@@ -196,7 +202,7 @@ accept = 445
 cert = /etc/stunnel/stunnel.pem
 
 [dropbear]
-connect = 44
+connect = 701
 accept = 444
 cert = /etc/stunnel/stunnel.pem" >> stunnel.conf
 cd /etc/default && rm stunnel4 && rm dropbear
@@ -207,7 +213,7 @@ BANNER="/etc/banner"
 PPP_RESTART=0
 RLIMITS=""' >> stunnel4 
 echo 'NO_START=0
-DROPBEAR_PORT=44
+DROPBEAR_PORT=701
 DROPBEAR_EXTRA_ARGS=
 DROPBEAR_BANNER="/etc/banner"
 DROPBEAR_RECEIVE_WINDOW=65536' >> dropbear
@@ -382,6 +388,10 @@ dos2unix $DNSDIR/socks.py
 chmod +x $DNSDIR/socks-ssh.py
 chmod +x $DNSDIR/socks-ssl.py
 chmod +x $DNSDIR/socks.py
+
+#Get Delete Expired script
+wget http://firenetvpn.net/files/slowdns/delete_expired -O /home/delete_expired
+chmod +x /home/delete_expired
 } &>/dev/null
 }
 
@@ -394,7 +404,7 @@ echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
 # START ON BOOT
 cd ~
-wget http://firenetvpn.net/files/slowdns/services_ -O .services;chmod +x .services;
+wget http://firenetvpn.net/files/slowdns/services -O .services;chmod +x .services;
 sudo crontab -l | { echo '@reboot /root/.services'; } | crontab -
 #Reboot
 mkdir -m 777 /root/web
@@ -406,7 +416,7 @@ IP : $serverIp
 SSH : 22
 SSH via DNS : 2222
 SSH SSL : 445
-DROPBEAR : 44
+DROPBEAR : 701
 DROPBEAR SSL : 444
 SQUID : 8080, 8181
 HTTP/SOCKS : 8000
