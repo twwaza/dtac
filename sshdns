@@ -44,10 +44,10 @@ echo "Select a dns resolver
 1 = Google Doh
 2 = Google (8.8.8.8)
 3 = Cloudflare Doh
-4 = Cloudflare (124.40.228.1)
+4 = Cloudflare (1.1.1.1)
 5 = Opendns Doh
 6 = Opendns (208.67.222.222)
-7 = DTAC (124.40.228.1)
+7 = 3BB (110.164.252.222)
 "
 read -p "Please enter the type of dns resolver : " dnschecker
   if [[ $dnschecker ]] && [ $dnschecker -eq $dnschecker 2>/dev/null ]
@@ -80,9 +80,9 @@ case $dnsresolverselected in
     dnsresolver="https://cloudflare-dns.com/dns-query"
     ;;
   4)
-    dnsresolverName="Cloudflare (124.40.228.1)"
+    dnsresolverName="Cloudflare (1.1.1.1)"
      dnsresolverType="udp"
-    dnsresolver="124.40.228.1:53"
+    dnsresolver="1.1.1.1:53"
     ;;
   5)
     dnsresolverName="Opendns Doh"
@@ -94,11 +94,11 @@ case $dnsresolverselected in
      dnsresolverType="udp"
     dnsresolver="208.67.222.222:53"
     ;;     
-7)
-    dnsresolverName="DTAC (124.40.228.1)"
+   7)
+    dnsresolverName="3BB (110.164.252.222)"
      dnsresolverType="udp"
-    dnsresolver="124.40.228.1:53"
-    ;;
+    dnsresolver="110.164.252.222:53"
+    ;;     
   *)
     exit 1
     ;;
@@ -126,11 +126,11 @@ nsrecord="$genNS.$dnsdomain"
 hostname=$arecord
 domain=$nsrecord
 clear
-echo "Firenet Solo SSH via DNS Installer v.1
+echo "M-67P SSH via DNS Installer v.1
 
 DNS : $domain
 
-Config Link : $serverIp:5623/$secretkey.txt 
+Config Link : $serverIp:2024/$secretkey.txt 
 (Visit the url above after installation)
 
 
@@ -336,7 +336,7 @@ fi
 }
 
 install_slowdns (){
-echo "ထည့်သွင်နေသည် dns..."
+echo "Installing dns..."
 {
 # Install Go language
 cd /usr/local
@@ -426,7 +426,7 @@ DNS RESOLVER : $dnsresolverName
 DNS PUBLIC KEY : $(cat /root/.dns/server.pub)
 -----------------------
 
-FB Page : https://facebook.com/firenetphilippines
+Telegram : t.me/joryyui67
 
 For issues or suggestions please open an issue on github.
 
