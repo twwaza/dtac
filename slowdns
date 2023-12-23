@@ -12,7 +12,7 @@ banner='
 |___/____\___/ \_/\_/ |___/|_|\_|___/'
 
 echo -e "${CORTITLE}◇───────────────────────────────────────────────◇${SCOLOR}" 
-echo -e "${CORTITLE}🐉ㅤDRAGON VPS MANAGER SLOW DNS CLIENTㅤ🐉${SCOLOR}"
+echo -e "${CORTITLE}🐉ㅤDTAC SLOW DNS CLIENTㅤ🐉${SCOLOR}"
 echo -e "${CORTITLE}◇───────────────────────────────────────────────◇${SCOLOR}" 
 echo -e "${RED}$banner${SCOLOR}"
 [[ ! -e dns ]] && {
@@ -58,7 +58,7 @@ echo -e "${RED}$banner${SCOLOR}"
 }
 dns=$3
 [[ -z "$dns" ]] && {
-    dns='124.40.228.1'
+    dns='103.86.49.240'
 }
 echo -ne "\n${RED}[${YELLOW}!${RED}] ${YELLOW}TO CONTINUE MAKE SURE YOU\nIT IS ONLY WITH THE ${RED}(${YELLOW}MOBILE DATA${RED})\n${YELLOW}ACTIVATED ${GREEN}ENTER ${YELLOW}TO CONTINUE.. ${SCOLOR}"; read
 $HOME/dns -udp ${dns}:53 -pubkey ${chave} ${ns} 127.0.0.1:2222 > /dev/null 2>&1 &
